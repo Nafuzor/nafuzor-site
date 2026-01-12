@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nafuzor Project</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,12 +18,9 @@
             --text-color: #ffffff;
             --text-secondary: #a0a0b0;
             --sub-card-bg: rgba(255, 255, 255, 0.03);
-            --accent-gold: #ffd700;
-            --accent-red: #ff4646;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: #020005;
@@ -34,44 +31,82 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
+            /* Улучшение скролла на мобильных */
+            -webkit-overflow-scrolling: touch; 
         }
 
-        /* --- ФОН --- */
+        /* --- ФОН (ОПТИМИЗИРОВАН) --- */
         .space-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%); }
         .stars-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)); background-size: 200px 200px; opacity: 0.3; }
-        .grid-layer { position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background-image: linear-gradient(rgba(176, 82, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(176, 82, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); animation: gridMove 20s linear infinite; pointer-events: none; }
+        
+        .grid-layer { 
+            position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; 
+            background-image: linear-gradient(rgba(176, 82, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(176, 82, 255, 0.03) 1px, transparent 1px); 
+            background-size: 50px 50px; 
+            transform: perspective(500px) rotateX(60deg); 
+            animation: gridMove 20s linear infinite; 
+            pointer-events: none; 
+            will-change: transform; /* Оптимизация GPU */
+        }
+        
         @keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0); } 100% { transform: perspective(500px) rotateX(60deg) translateY(50px); } }
-        .nebula { position: absolute; filter: blur(80px); opacity: 0.5; animation: nebulaFloat 10s infinite alternate ease-in-out; mix-blend-mode: screen; }
+        
+        .nebula { position: absolute; filter: blur(80px); opacity: 0.5; animation: nebulaFloat 10s infinite alternate ease-in-out; mix-blend-mode: screen; will-change: transform; }
         .nebula-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, #4a00e0, transparent 70%); }
         .nebula-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, #8e2de2, transparent 70%); animation-duration: 14s; }
         .nebula-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: radial-gradient(circle, #00f2ff, transparent 80%); opacity: 0.2; animation-duration: 18s; }
         @keyframes nebulaFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(20px, -20px) scale(1.1); } }
 
-        /* --- ЛЕВЫЕ КНОПКИ (МЕНЮ) --- */
+        /* --- НАВИГАЦИЯ (ПК ВЕРСИЯ) --- */
         .nav-container { position: absolute; top: 25px; left: 25px; z-index: 100; display: flex; flex-direction: column; gap: 10px; }
-        .nav-btn { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; width: fit-content; }
+        .nav-btn { 
+            display: flex; align-items: center; gap: 10px; padding: 10px 20px; 
+            border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; 
+            background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; 
+            transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; width: fit-content;
+            touch-action: manipulation; /* Убирает задержку клика */
+        }
         .nav-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateX(5px); }
-        .nav-btn svg { width: 20px; height: 20px; fill: #fff; }
+        .nav-btn svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
 
         /* Кнопка снега */
-        .snow-btn { position: absolute; top: 25px; right: 25px; z-index: 100; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; }
+        .snow-btn { 
+            position: absolute; top: 25px; right: 25px; z-index: 100; 
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; 
+            border-radius: 50%; background: rgba(30, 30, 45, 0.6); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; 
+            transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; 
+            touch-action: manipulation;
+        }
         .snow-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateY(-3px); }
         .snow-btn svg { width: 20px; height: 20px; fill: #fff; }
         .snow-btn.active { background: var(--primary-purple); box-shadow: 0 0 20px var(--primary-purple); border-color: #fff; }
+        
         #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
 
         /* --- КОНТЕЙНЕР --- */
-        .container { width: 100%; max-width: 700px; padding: 40px 20px; margin-top: 150px; z-index: 10; }
+        .container { width: 100%; max-width: 700px; padding: 40px 20px; margin-top: 100px; z-index: 10; margin-bottom: 100px; /* Отступ снизу для моб меню */ }
         .header-section { text-align: center; margin-bottom: 60px; margin-top: 20px; }
         .main-title { font-size: 2rem; font-weight: 800; line-height: 1.4; color: #fff; letter-spacing: -0.5px; }
         .brand-name { display: block; font-size: 2.8rem; margin-top: 10px; background: linear-gradient(135deg, #d387ff 0%, #9000ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(168, 85, 247, 0.4); text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- UI Elements --- */
-        .glass-card { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; margin-bottom: 25px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }
-        .accordion-header { width: 100%; padding: 25px 30px; background: transparent; border: none; outline: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
-        .icon-box { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        /* ОПТИМИЗАЦИЯ: Уменьшено размытие для мобилок */
+        .glass-card { 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
+            border: 1px solid var(--glass-border); border-top: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 24px; margin-bottom: 25px; overflow: hidden; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); 
+        }
+        
+        .accordion-header { width: 100%; padding: 25px 30px; background: transparent; border: none; outline: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; touch-action: manipulation; }
+        .icon-box { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
         .accordion-header.active .icon-box { transform: rotate(180deg); background: var(--primary-purple); }
-        .accordion-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s ease-out; }
+        .accordion-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease-out; }
         .accordion-content.open { grid-template-rows: 1fr; }
         .content-inner { overflow: hidden; }
         .content-padding { padding: 0 30px 30px 30px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
@@ -80,13 +115,15 @@
         .code-snippet { background: rgba(0, 0, 0, 0.4); border: 1px dashed #6a00ff; padding: 15px; border-radius: 8px; font-family: 'Consolas', monospace; color: #e0e0e0; margin: 15px 0; text-align: center; }
         .notification-header { color: #ffd700; font-weight: bold; margin-bottom: 5px; display: block; }
         ul.status-list { list-style: none; padding-left: 0; margin-top: 10px; } ul.status-list li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; } .status-icon { width: 18px; min-width: 18px; fill: var(--primary-purple); margin-top: 3px; }
-        .price-row { display: flex; justify-content: space-between; padding: 15px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border-left: 4px solid var(--primary-purple); cursor: pointer; transition: all 0.3s; position: relative; } .price-row:hover { background: rgba(176, 82, 255, 0.15); transform: translateX(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); } .price-row::after { content: 'ℹ️'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.3s; font-size: 0.8rem; } .price-row:hover::after { opacity: 1; } .price-row:hover .price-val { opacity: 0; } .price-name { font-weight: 700; color: #fff; } .price-val { font-weight: 600; color: #d387ff; transition: opacity 0.2s; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; } .modal-overlay.active { opacity: 1; pointer-events: all; } .modal-card { background: rgba(20, 20, 30, 0.95); border: 1px solid rgba(176, 82, 255, 0.4); border-radius: 20px; width: 90%; max-width: 400px; padding: 30px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 30px rgba(176, 82, 255, 0.2); position: relative; display: flex; flex-direction: column; align-items: center;} .modal-overlay.active .modal-card { transform: scale(1); } .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #aaa; font-size: 1.5rem; cursor: pointer; transition: color 0.3s; } .close-modal:hover { color: #fff; } .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; text-align: center; } .modal-body { font-size: 0.95rem; line-height: 1.6; color: #e0e0e0; width: 100%; }
-        .instructions-list { display: flex; flex-direction: column; gap: 12px; } .sub-item { background: var(--sub-card-bg); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; overflow: hidden; transition: background 0.3s; } .sub-item:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(176, 82, 255, 0.2); } .sub-btn { width: 100%; padding: 18px 20px; background: transparent; border: none; color: #fff; text-align: left; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; } .sub-btn-content { display: flex; align-items: center; gap: 12px; } .sub-btn svg.cat-icon { width: 20px; height: 20px; fill: #ccc; transition: fill 0.3s; } .sub-btn:hover svg.cat-icon, .sub-btn.active svg.cat-icon { fill: var(--primary-purple); } .sub-arrow { font-size: 0.8rem; color: #777; transition: transform 0.3s, color 0.3s; } .sub-btn.active .sub-arrow { transform: rotate(180deg); color: var(--primary-purple); } .sub-content-text { padding: 0 20px 20px 20px; font-size: 0.9rem; color: #ccc; border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: -5px; padding-top: 15px; }
-        .tier-list { display: flex; flex-direction: column; gap: 10px; padding: 15px 20px; } .tier-btn { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent); color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; position: relative; overflow: hidden; } .tier-btn::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: #666; } .tier-btn.alpha::before { background: #4facfe; } .tier-btn.prime::before { background: #ffd700; } .tier-btn.zero::before { background: #ff4646; } .tier-content { display: none; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 12px; margin-top: 5px; font-size: 0.9rem; line-height: 1.6; color: #ddd; border: 1px solid rgba(255, 255, 255, 0.05); } .tier-content.open { display: block; animation: fadeIn 0.4s; } .sub-header { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; display: block; } .sub-header.alpha-t { color: #4facfe; } .sub-header.prime-t { color: #ffd700; } .sub-header.zero-t { color: #ff4646; }
+        .price-row { display: flex; justify-content: space-between; padding: 15px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border-left: 4px solid var(--primary-purple); cursor: pointer; transition: all 0.2s; position: relative; touch-action: manipulation; } .price-row:active { transform: scale(0.98); background: rgba(176, 82, 255, 0.15); } .price-row::after { content: 'ℹ️'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.3s; font-size: 0.8rem; } .price-row:hover::after { opacity: 1; } .price-row:hover .price-val { opacity: 0; } .price-name { font-weight: 700; color: #fff; } .price-val { font-weight: 600; color: #d387ff; transition: opacity 0.2s; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; } .modal-overlay.active { opacity: 1; pointer-events: all; } .modal-card { background: rgba(20, 20, 30, 0.95); border: 1px solid rgba(176, 82, 255, 0.4); border-radius: 20px; width: 90%; max-width: 400px; padding: 30px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 30px rgba(176, 82, 255, 0.2); position: relative; display: flex; flex-direction: column; align-items: center;} .modal-overlay.active .modal-card { transform: scale(1); } .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #aaa; font-size: 1.5rem; cursor: pointer; transition: color 0.3s; padding: 10px; } .close-modal:hover { color: #fff; } .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; text-align: center; } .modal-body { font-size: 0.95rem; line-height: 1.6; color: #e0e0e0; width: 100%; }
+        
+        .instructions-list { display: flex; flex-direction: column; gap: 12px; } .sub-item { background: var(--sub-card-bg); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; overflow: hidden; transition: background 0.3s; } .sub-item:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(176, 82, 255, 0.2); } .sub-btn { width: 100%; padding: 18px 20px; background: transparent; border: none; color: #fff; text-align: left; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; touch-action: manipulation; } .sub-btn-content { display: flex; align-items: center; gap: 12px; } .sub-btn svg.cat-icon { width: 20px; height: 20px; fill: #ccc; transition: fill 0.3s; } .sub-btn:hover svg.cat-icon, .sub-btn.active svg.cat-icon { fill: var(--primary-purple); } .sub-arrow { font-size: 0.8rem; color: #777; transition: transform 0.3s, color 0.3s; } .sub-btn.active .sub-arrow { transform: rotate(180deg); color: var(--primary-purple); } .sub-content-text { padding: 0 20px 20px 20px; font-size: 0.9rem; color: #ccc; border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: -5px; padding-top: 15px; }
+        .tier-list { display: flex; flex-direction: column; gap: 10px; padding: 15px 20px; } .tier-btn { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent); color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; position: relative; overflow: hidden; touch-action: manipulation; } .tier-btn::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: #666; } .tier-btn.alpha::before { background: #4facfe; } .tier-btn.prime::before { background: #ffd700; } .tier-btn.zero::before { background: #ff4646; } .tier-content { display: none; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 12px; margin-top: 5px; font-size: 0.9rem; line-height: 1.6; color: #ddd; border: 1px solid rgba(255, 255, 255, 0.05); } .tier-content.open { display: block; animation: fadeIn 0.4s; } .sub-header { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; display: block; } .sub-header.alpha-t { color: #4facfe; } .sub-header.prime-t { color: #ffd700; } .sub-header.zero-t { color: #ff4646; }
 
-        /* --- КАРТА (BLACK & PURPLE EDITION) --- */
-        .card-container { perspective: 1000px; width: 100%; margin: 15px 0 20px 0; cursor: pointer; }
+        /* --- КАРТА --- */
+        .card-container { perspective: 1000px; width: 100%; margin: 15px 0 20px 0; cursor: pointer; touch-action: manipulation; }
         .card-inner { position: relative; width: 100%; aspect-ratio: 1.6 / 1; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
         .card-container.flipped .card-inner { transform: rotateY(180deg); }
         .card-face { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
@@ -123,7 +160,7 @@
         .highlight { color: #b052ff; font-weight: bold; }
         .ref-link-wrapper { margin-bottom: 20px; }
         .ref-label { font-size: 0.9rem; color: #aaa; margin-bottom: 5px; display: block; }
-        .ref-link-box { background: rgba(0, 0, 0, 0.4); border: 1px solid #333; border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s; }
+        .ref-link-box { background: rgba(0, 0, 0, 0.4); border: 1px solid #333; border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s; touch-action: manipulation; }
         .ref-link-box:active { transform: scale(0.98); background: rgba(176, 82, 255, 0.1); }
         .ref-link-box span { font-family: 'Share Tech Mono', monospace; color: #4facfe; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 10px; font-size: 0.9rem; }
         .copy-icon { width: 18px; fill: #aaa; }
@@ -132,25 +169,85 @@
         .stat-icon { font-size: 1.5rem; margin-bottom: 5px; }
         .stat-label { font-size: 0.8rem; color: #888; display: block; }
         .stat-value { font-size: 1.1rem; font-weight: 700; color: #fff; display: block; }
-        .action-btn { width: 100%; padding: 14px; background: linear-gradient(90deg, rgba(176, 82, 255, 0.2), rgba(79, 172, 254, 0.2)); border: 1px solid rgba(176, 82, 255, 0.4); border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: all 0.3s; }
+        .action-btn { width: 100%; padding: 14px; background: linear-gradient(90deg, rgba(176, 82, 255, 0.2), rgba(79, 172, 254, 0.2)); border: 1px solid rgba(176, 82, 255, 0.4); border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: all 0.3s; touch-action: manipulation; }
         .action-btn:hover { background: linear-gradient(90deg, rgba(176, 82, 255, 0.4), rgba(79, 172, 254, 0.4)); transform: translateY(-2px); }
         .action-btn svg { width: 20px; fill: #fff; }
 
-        @media (max-width: 600px) {
-            .tg-button { top: 15px; left: 15px; padding: 8px 15px; font-size: 0.8rem; }
-            .snow-btn { top: 15px; right: 15px; width: 35px; height: 35px; }
-            .main-title { font-size: 1.5rem; }
-            .brand-name { font-size: 2rem; }
-            .container { padding: 20px 15px; margin-top: 150px; }
-            .card-number { font-size: 1rem; }
+        /* =================================================================
+           МОБИЛЬНАЯ ОПТИМИЗАЦИЯ И НИЖНЯЯ ПАНЕЛЬ
+           ================================================================= */
+        @media (max-width: 768px) {
+            
+            /* Отключаем тяжелые анимации */
+            .grid-layer { display: none; }
+            .nebula { animation: none; filter: blur(60px); opacity: 0.3; } /* Статичные туманности */
+            .card-inner { transition: transform 0.4s; } /* Ускоренный переворот */
+
+            /* Оптимизация заголовка */
+            .main-title { font-size: 1.6rem; margin-bottom: 30px; }
+            .brand-name { font-size: 2.2rem; }
+            .container { padding: 15px; margin-top: 70px; margin-bottom: 120px; } /* Место для нижней панели */
+
+            /* КНОПКИ ВНИЗУ (DOCK STYLE) */
+            .nav-container {
+                position: fixed;
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 95%;
+                max-width: 400px;
+                flex-direction: row; /* В ряд */
+                justify-content: space-between;
+                gap: 8px;
+                
+                background: rgba(20, 20, 30, 0.85); /* Темный фон панели */
+                backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
+                padding: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+
+            .nav-btn {
+                flex: 1; /* Растягиваем кнопки */
+                justify-content: center;
+                padding: 10px 5px;
+                font-size: 0.75rem; /* Текст поменьше */
+                flex-direction: column; /* Иконка сверху, текст снизу */
+                gap: 5px;
+                background: transparent; /* Убираем фон кнопок, чтобы сливались с панелью */
+                border: none;
+                box-shadow: none;
+                border-radius: 12px;
+            }
+
+            .nav-btn:hover, .nav-btn:active {
+                background: rgba(255, 255, 255, 0.1);
+                transform: none; /* Убираем сдвиг */
+            }
+
+            .nav-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            /* Кнопка снега - остается наверху, но чуть меньше */
+            .snow-btn {
+                top: 15px; right: 15px; width: 40px; height: 40px;
+                background: rgba(30, 30, 45, 0.8);
+            }
+
+            /* Уменьшаем шрифты карты */
+            .card-number { font-size: 1rem; letter-spacing: 2px; }
             .card-logo { font-size: 1rem; }
-            .card-qr { width: 65px; height: 65px; right: 45px; bottom: 15px; }
+            .card-qr { width: 60px; height: 60px; right: 40px; bottom: 15px; }
+            .vertical-text { font-size: 0.9rem; right: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- МОДАЛЬНОЕ ОКНО -->
     <div class="modal-overlay" id="subModal">
         <div class="modal-card">
             <button class="close-modal" onclick="closeModal()">×</button>
@@ -168,19 +265,16 @@
 
     <canvas id="snow-canvas"></canvas>
 
-    <!-- ГРУППА КНОПОК СЛЕВА -->
+    <!-- НАВИГАЦИЯ (НА МОБИЛЬНЫХ БУДЕТ ВНИЗУ) -->
     <div class="nav-container">
-        <!-- Канал -->
         <a href="https://t.me/NafuzorProject" target="_blank" class="nav-btn">
             <svg viewBox="0 0 24 24"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42l10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.002.001l-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15l4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg>
-            <span>Telegram Channel</span>
+            <span>Канал</span>
         </a>
-        <!-- Бот -->
         <a href="https://t.me/nafuzor_project_bot" target="_blank" class="nav-btn">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v2h-2zm4 4h-2v6h-2v-6H9v-2h6z"/></svg>
-            <span>Telegram Bot</span>
+            <span>Бот</span>
         </a>
-        <!-- Поддержка -->
         <a href="https://t.me/nafuzor_supportBot" target="_blank" class="nav-btn">
             <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
             <span>Поддержка</span>
@@ -193,7 +287,6 @@
     </button>
 
     <div class="container">
-        
         <div class="header-section">
             <h1 class="main-title">
                 Добро пожаловать в<br>Ознакомительную обложку
@@ -201,6 +294,9 @@
             </h1>
         </div>
 
+        <!-- ОСТАЛЬНОЙ КОНТЕНТ БЕЗ ИЗМЕНЕНИЙ (ВСТАВИТЬ СЮДА БЛОКИ ПРАВИЛ И ИНСТРУКЦИЙ ИЗ ПРЕДЫДУЩЕГО КОДА) -->
+        <!-- Я сокращу эту часть для краткости, она идентична предыдущему ответу, вставляй сюда блоки class="glass-card" -->
+        
         <!-- БЛОК 1: ПРАВИЛА -->
         <div class="glass-card">
             <button class="accordion-header" id="rulesBtn">
@@ -240,7 +336,6 @@
                     <div class="content-padding">
                         <div class="instructions-list">
                             
-                            <!-- Добавить номер (ВИДЕО) -->
                             <div class="sub-item">
                                 <button class="sub-btn" id="addBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> Как добавить номер</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
@@ -261,7 +356,6 @@
                                 </div>
                             </div>
 
-                            <!-- О ПОДПИСКАХ -->
                             <div class="sub-item">
                                 <button class="sub-btn" id="subsBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> О подписках</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
@@ -497,6 +591,7 @@
         // Запуск при изменении хеша в URL (если нажать назад/вперед)
         window.addEventListener('hashchange', handleHash);
 
+        // --- OPTIMIZED SNOW (LESS PARTICLES FOR MOBILE) ---
         const snowCanvas = document.getElementById('snow-canvas');
         const ctx = snowCanvas.getContext('2d');
         const snowBtn = document.getElementById('toggleSnowBtn');
@@ -514,7 +609,13 @@
             update() { this.y += this.velocity; this.x += this.drift; if (this.y > snowCanvas.height) { this.y = -5; this.x = Math.random() * snowCanvas.width; } if (this.x > snowCanvas.width) this.x = 0; if (this.x < 0) this.x = snowCanvas.width; }
         }
 
-        function initSnow() { particles = []; const count = window.innerWidth < 600 ? 50 : 100; for (let i = 0; i < count; i++) particles.push(new Snowflake()); }
+        function initSnow() { 
+            particles = []; 
+            // ОПТИМИЗАЦИЯ: Меньше снежинок для мобильных
+            const count = window.innerWidth < 768 ? 20 : 80; 
+            for (let i = 0; i < count; i++) particles.push(new Snowflake()); 
+        }
+        
         function animateSnow() { if (!snowActive) return; ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height); particles.forEach(p => { p.update(); p.draw(); }); animationId = requestAnimationFrame(animateSnow); }
         snowBtn.addEventListener('click', () => { snowActive = !snowActive; if (snowActive) { snowBtn.classList.add('active'); initSnow(); animateSnow(); } else { snowBtn.classList.remove('active'); ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height); cancelAnimationFrame(animationId); } });
     </script>
