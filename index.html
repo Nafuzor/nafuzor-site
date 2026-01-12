@@ -46,23 +46,50 @@
         .nebula-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: radial-gradient(circle, #00f2ff, transparent 80%); opacity: 0.2; animation-duration: 18s; }
         @keyframes nebulaFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(20px, -20px) scale(1.1); } }
 
-        .nav-container { position: absolute; top: 25px; left: 25px; z-index: 100; display: flex; flex-direction: column; gap: 10px; }
-        .nav-btn { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; width: fit-content; touch-action: manipulation; }
+        /* --- НАВИГАЦИЯ (ПК ВЕРСИЯ - СЛЕВА ВЕРХУ) --- */
+        .nav-container { 
+            position: absolute; 
+            top: 25px; 
+            left: 25px; 
+            z-index: 100; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+        }
+        .nav-btn { 
+            display: flex; align-items: center; gap: 10px; padding: 10px 20px; 
+            border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; 
+            background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; 
+            transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; width: fit-content; 
+            touch-action: manipulation;
+        }
         .nav-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateX(5px); }
         .nav-btn svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
 
-        .snow-btn { position: absolute; top: 25px; right: 25px; z-index: 100; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; touch-action: manipulation; }
+        /* Кнопка снега */
+        .snow-btn { 
+            position: absolute; top: 25px; right: 25px; z-index: 100; 
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; 
+            border-radius: 50%; background: rgba(30, 30, 45, 0.6); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; 
+            transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; 
+            touch-action: manipulation;
+        }
         .snow-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateY(-3px); }
         .snow-btn svg { width: 20px; height: 20px; fill: #fff; }
         .snow-btn.active { background: var(--primary-purple); box-shadow: 0 0 20px var(--primary-purple); border-color: #fff; }
         
         #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
 
+        /* --- КОНТЕЙНЕР --- */
         .container { width: 100%; max-width: 700px; padding: 40px 20px; margin-top: 150px; z-index: 10; margin-bottom: 100px; }
         .header-section { text-align: center; margin-bottom: 60px; margin-top: 20px; }
         .main-title { font-size: 2rem; font-weight: 800; line-height: 1.4; color: #fff; letter-spacing: -0.5px; }
         .brand-name { display: block; font-size: 2.8rem; margin-top: 10px; background: linear-gradient(135deg, #d387ff 0%, #9000ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(168, 85, 247, 0.4); text-transform: uppercase; letter-spacing: 2px; }
 
+        /* --- UI Elements --- */
         .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; margin-bottom: 25px; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }
         .accordion-header { width: 100%; padding: 25px 30px; background: transparent; border: none; outline: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; touch-action: manipulation; }
         .icon-box { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
@@ -81,25 +108,13 @@
         .notification-header { color: #ffd700; font-weight: bold; margin-bottom: 5px; display: block; }
         ul.status-list { list-style: none; padding-left: 0; margin-top: 10px; } ul.status-list li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; } .status-icon { width: 18px; min-width: 18px; fill: var(--primary-purple); margin-top: 3px; }
         
-        /* PRICE ROW (UPDATED - NO EMOJI) */
         .price-row { display: flex; justify-content: space-between; align-items: center; padding: 15px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border-left: 4px solid var(--primary-purple); cursor: pointer; transition: all 0.2s; position: relative; touch-action: manipulation; height: 50px; } 
         .price-row:active { transform: scale(0.98); background: rgba(176, 82, 255, 0.15); } 
         .price-row:hover .price-val { opacity: 0; }
         .price-row:hover .price-info-icon { opacity: 1; transform: translateX(0); }
-        
         .price-name { font-weight: 700; color: #fff; }
         .price-val { font-weight: 600; color: #d387ff; transition: opacity 0.2s; }
-        
-        /* Info Icon for Price Row */
-        .price-info-icon {
-            position: absolute;
-            right: 15px;
-            opacity: 0;
-            transform: translateX(10px);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-        }
+        .price-info-icon { position: absolute; right: 15px; opacity: 0; transform: translateX(10px); transition: all 0.3s; display: flex; align-items: center; }
         .price-info-icon svg { width: 20px; height: 20px; fill: #fff; }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; } .modal-overlay.active { opacity: 1; pointer-events: all; } .modal-card { background: rgba(20, 20, 30, 0.95); border: 1px solid rgba(176, 82, 255, 0.4); border-radius: 20px; width: 90%; max-width: 400px; padding: 30px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 30px rgba(176, 82, 255, 0.2); position: relative; display: flex; flex-direction: column; align-items: center;} .modal-overlay.active .modal-card { transform: scale(1); } .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #aaa; font-size: 1.5rem; cursor: pointer; transition: color 0.3s; padding: 10px; } .close-modal:hover { color: #fff; } .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; text-align: center; } .modal-body { font-size: 0.95rem; line-height: 1.6; color: #e0e0e0; width: 100%; }
@@ -135,7 +150,6 @@
         .video-wrapper { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-bottom: 20px; background: #000; position: relative; }
         video { width: 100%; display: block; object-fit: cover; }
         
-        /* UPDATED STEP ROW WITH ICONS */
         .step-row { display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); } 
         .step-icon-box { 
             width: 30px; height: 30px; min-width: 30px; 
@@ -166,17 +180,54 @@
         .action-btn:hover { background: linear-gradient(90deg, rgba(176, 82, 255, 0.4), rgba(79, 172, 254, 0.4)); transform: translateY(-2px); }
         .action-btn svg { width: 20px; fill: #fff; }
 
+        /* =================================================================
+           МОБИЛЬНАЯ ОПТИМИЗАЦИЯ И НИЖНЯЯ ПАНЕЛЬ
+           ================================================================= */
         @media (max-width: 768px) {
             .grid-layer { display: none; }
             .nebula { animation: none; filter: blur(60px); opacity: 0.3; }
-            .card-inner { transition: transform 0.4s; }
+            .card-inner { transition: transform 0.4s; } 
+            
             .main-title { font-size: 1.6rem; margin-bottom: 30px; }
             .brand-name { font-size: 2.2rem; }
             .container { padding: 15px; margin-top: 70px; margin-bottom: 120px; }
-            .nav-container { position: fixed; top: auto; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 400px; flex-direction: row; justify-content: space-between; gap: 8px; background: rgba(20, 20, 30, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-            .nav-btn { flex: 1; justify-content: center; padding: 10px 5px; font-size: 0.75rem; flex-direction: column; gap: 5px; background: transparent; border: none; box-shadow: none; border-radius: 12px; }
+
+            /* НИЖНЕЕ МЕНЮ (FIXED DOCK) */
+            .nav-container {
+                position: fixed;
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 95%;
+                max-width: 400px;
+                flex-direction: row; 
+                justify-content: space-between;
+                gap: 8px;
+                background: rgba(20, 20, 30, 0.9);
+                backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
+                padding: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+
+            .nav-btn {
+                flex: 1;
+                justify-content: center;
+                padding: 10px 5px;
+                font-size: 0.7rem; 
+                flex-direction: column; 
+                gap: 5px;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                border-radius: 12px;
+            }
+
             .nav-btn:hover, .nav-btn:active { background: rgba(255, 255, 255, 0.1); transform: none; }
             .nav-btn svg { width: 24px; height: 24px; }
+
             .snow-btn { top: 15px; right: 15px; width: 40px; height: 40px; background: rgba(30, 30, 45, 0.8); }
             .card-number { font-size: 1rem; letter-spacing: 2px; }
             .card-logo { font-size: 1rem; }
@@ -204,6 +255,7 @@
 
     <canvas id="snow-canvas"></canvas>
 
+    <!-- НАВИГАЦИЯ (НИЖНЯЯ ПАНЕЛЬ НА МОБИЛКАХ) -->
     <div class="nav-container">
         <a href="https://t.me/NafuzorProject" target="_blank" class="nav-btn">
             <svg viewBox="0 0 24 24"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42l10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.002.001l-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15l4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg>
@@ -252,23 +304,9 @@
                         <ul class="status-list"><li><svg class="status-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg> <strong>В работе</strong> – номер ещё стоит.</li><li><svg class="status-icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <strong>Ожидает</strong> – в очереди.</li><li><svg class="status-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <strong>Успех</strong> – холд > 54 мин (Выплата).</li><li><svg class="status-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> <strong>Блок</strong> – слетел.</li></ul>
                         <h3><svg viewBox="0 0 24 24"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.5 2.54l2.26 2.26c.74-1.46 1.24-3.08 1.24-4.8 0-5.16-3.87-9.43-9-9.95zM4.74 3.73L3.46 5l3.29 3.29C6.26 9.4 6 10.66 6 12c0 3.53 2.61 6.43 6 6.92v3.03c-5.13-.52-9-4.79-9-9.95 0-1.72.5-3.34 1.24-4.8l.5.26z"/></svg> Повышение прайса</h3>
                         <p style="font-size: 0.9em; margin-bottom: 15px; opacity: 0.8;">Нажмите на подписку, чтобы узнать подробности:</p>
-                        
-                        <!-- PRICE ROWS (WITH SVG INFO ICON) -->
-                        <div class="price-row" onclick="openModal('alpha')">
-                            <span class="price-name" style="color:#4facfe">Alpha</span>
-                            <span class="price-val">300 RUB</span>
-                            <div class="price-info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
-                        </div>
-                        <div class="price-row" onclick="openModal('nucleus')">
-                            <span class="price-name" style="color:#ffd700">Nucleus</span>
-                            <span class="price-val">600 RUB</span>
-                            <div class="price-info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
-                        </div>
-                        <div class="price-row" onclick="openModal('zero')">
-                            <span class="price-name" style="color:#ff4646">Zero Limits</span>
-                            <span class="price-val">1100 RUB</span>
-                            <div class="price-info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
-                        </div>
+                        <div class="price-row" onclick="openModal('alpha')"><span class="price-name" style="color:#4facfe">Alpha</span><span class="price-val">300 RUB</span><div class="price-info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div></div>
+                        <div class="price-row" onclick="openModal('nucleus')"><span class="price-name" style="color:#ffd700">Nucleus</span><span class="price-val">600 RUB</span><div class="price-info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div></div>
+                        <div class="price-row" onclick="openModal('zero')"><span class="price-name" style="color:#ff4646">Zero Limits</span><span class="price-val">1100 RUB</span><div class="price-info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div></div>
                     </div>
                 </div>
             </div>
@@ -285,7 +323,6 @@
                     <div class="content-padding">
                         <div class="instructions-list">
                             
-                            <!-- Добавить номер (ВИДЕО + ИКОНКИ ШАГОВ) -->
                             <div class="sub-item">
                                 <button class="sub-btn" id="addBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> Как добавить номер</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
@@ -331,14 +368,11 @@
                                 </div>
                             </div>
 
-                            <!-- О КАРТЕ -->
                             <div class="sub-item">
                                 <button class="sub-btn" id="cardBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg> О карте</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
                                     <div class="content-inner">
                                         <div class="sub-content-text">
-                                            
-                                            <!-- КАРТА -->
                                             <div class="card-container" onclick="this.classList.toggle('flipped')">
                                                 <div class="card-inner">
                                                     <div class="card-face card-front">
@@ -358,7 +392,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <p style="margin-bottom: 15px; font-weight: 500; text-align:center; font-size: 0.8rem; opacity: 0.7;">(Нажмите на карту, чтобы перевернуть)</p>
                                             <p style="margin-bottom: 5px; color: #fff;"><strong>Функции карты:</strong></p>
                                             <ul class="status-list">
@@ -371,19 +404,15 @@
                                 </div>
                             </div>
 
-                            <!-- О РЕФЕРАЛКЕ -->
                             <div class="sub-item">
                                 <button class="sub-btn" id="refBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg> О рефералке</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
                                     <div class="content-inner">
                                         <div class="sub-content-text">
-                                            
                                             <div class="ref-box">
                                                 <h3 class="ref-title">👥 Партнёрская программа</h3>
                                                 <p class="ref-desc">💼 <strong>Зарабатывай вместе с нами!</strong></p>
                                                 <p class="ref-text">Приглашай друзей по своей уникальной ссылке и получай <span class="highlight">15%</span> с каждого пополнения.</p>
-
-                                                <!-- ССЫЛКА С КОПИРОВАНИЕМ -->
                                                 <div class="ref-link-wrapper" onclick="copyRefLink(this)">
                                                     <span class="ref-label">🔗 Ваша ссылка (нажми):</span>
                                                     <div class="ref-link-box">
@@ -391,32 +420,21 @@
                                                         <svg class="copy-icon" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
                                                     </div>
                                                 </div>
-
-                                                <!-- СТАТИСТИКА -->
                                                 <div class="ref-stats">
                                                     <div class="stat-box">
                                                         <span class="stat-icon">👤</span>
-                                                        <div class="stat-info">
-                                                            <span class="stat-label">Приглашено</span>
-                                                            <span class="stat-value">0</span>
-                                                        </div>
+                                                        <div class="stat-info"><span class="stat-label">Приглашено</span><span class="stat-value">0</span></div>
                                                     </div>
                                                     <div class="stat-box">
                                                         <span class="stat-icon">🛒</span>
-                                                        <div class="stat-info">
-                                                            <span class="stat-label">Ваша скидка</span>
-                                                            <span class="stat-value" style="color: #ff4646">Нет</span>
-                                                        </div>
+                                                        <div class="stat-info"><span class="stat-label">Ваша скидка</span><span class="stat-value" style="color: #ff4646">Нет</span></div>
                                                     </div>
                                                 </div>
-
-                                                <!-- КНОПКА QR -->
                                                 <button class="action-btn" onclick="openRefQR()">
                                                     <svg viewBox="0 0 24 24"><path d="M3 3h6v6H3V3zm2 2v2h2V5H5zm8-2h6v6h-6V3zm2 2v2h2V5h-2zM3 13h6v6H3v-6zm2 2v2h2v-2H5zm13-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zM13 13h2v2h-2v-2zm2 2h2v2h-2v-2z"/></svg>
                                                     Показать QR
                                                 </button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -486,7 +504,6 @@
             });
         });
 
-        // DEEP LINKING
         function handleHash() {
             const hash = window.location.hash.substring(1);
             if (!hash) return;
