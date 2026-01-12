@@ -23,6 +23,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: #020005;
@@ -46,18 +47,13 @@
         .nebula-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: radial-gradient(circle, #00f2ff, transparent 80%); opacity: 0.2; animation-duration: 18s; }
         @keyframes nebulaFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(20px, -20px) scale(1.1); } }
 
-        /* --- ЛЕВЫЕ КНОПКИ (МЕНЮ) --- */
-        .nav-container { position: absolute; top: 25px; left: 25px; z-index: 100; display: flex; flex-direction: column; gap: 10px; }
-        .nav-btn { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; width: fit-content; }
-        .nav-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateX(5px); }
-        .nav-btn svg { width: 20px; height: 20px; fill: #fff; }
-
-        /* Кнопка снега */
-        .snow-btn { position: absolute; top: 25px; right: 25px; z-index: 100; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; }
-        .snow-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateY(-3px); }
-        .snow-btn svg { width: 20px; height: 20px; fill: #fff; }
+        /* --- КНОПКИ --- */
+        .tg-button, .snow-btn { position: absolute; top: 25px; z-index: 100; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; }
+        .tg-button { left: 25px; display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .snow-btn { right: 25px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .tg-button:hover, .snow-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateY(-3px); }
+        .tg-button svg, .snow-btn svg { width: 20px; height: 20px; fill: #fff; }
         .snow-btn.active { background: var(--primary-purple); box-shadow: 0 0 20px var(--primary-purple); border-color: #fff; }
-        
         #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
 
         /* --- КОНТЕЙНЕР --- */
@@ -65,6 +61,12 @@
         .header-section { text-align: center; margin-bottom: 60px; margin-top: 20px; }
         .main-title { font-size: 2rem; font-weight: 800; line-height: 1.4; color: #fff; letter-spacing: -0.5px; }
         .brand-name { display: block; font-size: 2.8rem; margin-top: 10px; background: linear-gradient(135deg, #d387ff 0%, #9000ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(168, 85, 247, 0.4); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- ЛЕВЫЕ КНОПКИ (МЕНЮ) --- */
+        .nav-container { position: absolute; top: 25px; left: 25px; z-index: 100; display: flex; flex-direction: column; gap: 10px; }
+        .nav-btn { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; background: rgba(30, 30, 45, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(176, 82, 255, 0.3); color: #fff; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); cursor: pointer; width: fit-content; }
+        .nav-btn:hover { background: rgba(176, 82, 255, 0.25); border-color: var(--primary-purple); transform: translateX(5px); }
+        .nav-btn svg { width: 20px; height: 20px; fill: #fff; }
 
         /* --- UI Elements --- */
         .glass-card { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; margin-bottom: 25px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }
@@ -85,7 +87,7 @@
         .instructions-list { display: flex; flex-direction: column; gap: 12px; } .sub-item { background: var(--sub-card-bg); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; overflow: hidden; transition: background 0.3s; } .sub-item:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(176, 82, 255, 0.2); } .sub-btn { width: 100%; padding: 18px 20px; background: transparent; border: none; color: #fff; text-align: left; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; } .sub-btn-content { display: flex; align-items: center; gap: 12px; } .sub-btn svg.cat-icon { width: 20px; height: 20px; fill: #ccc; transition: fill 0.3s; } .sub-btn:hover svg.cat-icon, .sub-btn.active svg.cat-icon { fill: var(--primary-purple); } .sub-arrow { font-size: 0.8rem; color: #777; transition: transform 0.3s, color 0.3s; } .sub-btn.active .sub-arrow { transform: rotate(180deg); color: var(--primary-purple); } .sub-content-text { padding: 0 20px 20px 20px; font-size: 0.9rem; color: #ccc; border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: -5px; padding-top: 15px; }
         .tier-list { display: flex; flex-direction: column; gap: 10px; padding: 15px 20px; } .tier-btn { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent); color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; position: relative; overflow: hidden; } .tier-btn::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: #666; } .tier-btn.alpha::before { background: #4facfe; } .tier-btn.prime::before { background: #ffd700; } .tier-btn.zero::before { background: #ff4646; } .tier-content { display: none; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 12px; margin-top: 5px; font-size: 0.9rem; line-height: 1.6; color: #ddd; border: 1px solid rgba(255, 255, 255, 0.05); } .tier-content.open { display: block; animation: fadeIn 0.4s; } .sub-header { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; display: block; } .sub-header.alpha-t { color: #4facfe; } .sub-header.prime-t { color: #ffd700; } .sub-header.zero-t { color: #ff4646; }
 
-        /* --- КАРТА (BLACK & PURPLE EDITION) --- */
+        /* --- КАРТА --- */
         .card-container { perspective: 1000px; width: 100%; margin: 15px 0 20px 0; cursor: pointer; }
         .card-inner { position: relative; width: 100%; aspect-ratio: 1.6 / 1; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
         .card-container.flipped .card-inner { transform: rotateY(180deg); }
@@ -203,7 +205,7 @@
 
         <!-- БЛОК 1: ПРАВИЛА -->
         <div class="glass-card">
-            <button class="accordion-header">
+            <button class="accordion-header" id="rulesBtn">
                 <span>Правила</span>
                 <div class="icon-box">▼</div>
             </button>
@@ -222,7 +224,7 @@
                         <h3><svg viewBox="0 0 24 24"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.5 2.54l2.26 2.26c.74-1.46 1.24-3.08 1.24-4.8 0-5.16-3.87-9.43-9-9.95zM4.74 3.73L3.46 5l3.29 3.29C6.26 9.4 6 10.66 6 12c0 3.53 2.61 6.43 6 6.92v3.03c-5.13-.52-9-4.79-9-9.95 0-1.72.5-3.34 1.24-4.8l.5.26z"/></svg> Повышение прайса</h3>
                         <p style="font-size: 0.9em; margin-bottom: 15px; opacity: 0.8;">Нажмите на подписку, чтобы узнать подробности:</p>
                         <div class="price-row" onclick="openModal('alpha')"><span class="price-name" style="color:#4facfe">Alpha</span><span class="price-val">300 RUB</span></div>
-                        <div class="price-row" onclick="openModal('prime')"><span class="price-name" style="color:#ffd700">Nucleus</span><span class="price-val">600 RUB</span></div>
+                        <div class="price-row" onclick="openModal('nucleus')"><span class="price-name" style="color:#ffd700">Nucleus</span><span class="price-val">600 RUB</span></div>
                         <div class="price-row" onclick="openModal('zero')"><span class="price-name" style="color:#ff4646">Zero Limits</span><span class="price-val">1100 RUB</span></div>
                     </div>
                 </div>
@@ -231,7 +233,7 @@
 
         <!-- ИНСТРУКЦИИ -->
         <div class="glass-card">
-            <button class="accordion-header">
+            <button class="accordion-header" id="instructBtn">
                 <span>Инструкции</span>
                 <div class="icon-box">▼</div>
             </button>
@@ -240,9 +242,8 @@
                     <div class="content-padding">
                         <div class="instructions-list">
                             
-                            <!-- Добавить номер (ВИДЕО) -->
                             <div class="sub-item">
-                                <button class="sub-btn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> Как добавить номер</div><span class="sub-arrow">▼</span></button>
+                                <button class="sub-btn" id="addBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> Как добавить номер</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
                                     <div class="content-inner">
                                         <div class="sub-content-text">
@@ -261,9 +262,8 @@
                                 </div>
                             </div>
 
-                            <!-- О ПОДПИСКАХ -->
                             <div class="sub-item">
-                                <button class="sub-btn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> О подписках</div><span class="sub-arrow">▼</span></button>
+                                <button class="sub-btn" id="subsBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> О подписках</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
                                     <div class="content-inner">
                                         <div class="tier-list">
@@ -320,7 +320,7 @@
 
                             <!-- О РЕФЕРАЛКЕ (ЗАПОЛНЕНО) -->
                             <div class="sub-item">
-                                <button class="sub-btn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg> О рефералке</div><span class="sub-arrow">▼</span></button>
+                                <button class="sub-btn" id="refBtn"><div class="sub-btn-content"><svg class="cat-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg> О рефералке</div><span class="sub-arrow">▼</span></button>
                                 <div class="accordion-content">
                                     <div class="content-inner">
                                         <div class="sub-content-text">
@@ -387,7 +387,6 @@
         const modal = document.getElementById('subModal');
         const modalContent = document.getElementById('modalContent');
         function openModal(type) {
-            // Поддержка и старых ключей 'prime', и новых 'nucleus'
             if (type === 'prime') type = 'nucleus';
             const data = subData[type];
             if (!data) return;
@@ -397,40 +396,26 @@
         function closeModal() { modal.classList.remove('active'); }
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-        // JS ДЛЯ РЕФЕРАЛКИ (КОПИРОВАНИЕ)
         function copyRefLink(element) {
             const linkText = document.getElementById('refLinkText').innerText;
             navigator.clipboard.writeText(linkText).then(() => {
                 const label = element.querySelector('.ref-label');
-                const originalLabel = "🔗 Ваша ссылка (нажми):";
+                const originalLabel = label.innerText;
                 label.innerText = '✅ Скопировано!';
                 label.style.color = '#4facfe';
-                
-                setTimeout(() => {
-                    label.innerText = originalLabel;
-                    label.style.color = '#aaa';
-                }, 2000);
+                setTimeout(() => { label.innerText = originalLabel; label.style.color = '#aaa'; }, 2000);
             });
         }
 
-        // JS ДЛЯ РЕФЕРАЛКИ (QR)
         function openRefQR() {
-            modalContent.innerHTML = `
-                <div class="modal-title">Ваш QR-код</div>
-                <div style="display:flex; justify-content:center; margin-bottom:15px;">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://t.me/NafuzorBot?start=ref123&color=000000&bgcolor=ffffff" style="border-radius:10px;">
-                </div>
-                <p style="text-align:center; color:#ccc;">Покажите этот код другу для сканирования</p>
-            `;
+            modalContent.innerHTML = `<div class="modal-title">Ваш QR-код</div><div style="display:flex; justify-content:center; margin-bottom:15px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://t.me/NafuzorBot?start=ref123&color=000000&bgcolor=ffffff" style="border-radius:10px;"></div><p style="text-align:center; color:#ccc;">Покажите этот код другу для сканирования</p>`;
             modal.classList.add('active');
         }
 
         const toggles = document.querySelectorAll('.accordion-header, .sub-btn, .tier-btn');
         toggles.forEach(toggle => {
             toggle.addEventListener('click', (e) => {
-                // Если клик на копирование ссылки или кнопку QR, не сворачиваем аккордеон
                 if(e.target.closest('.ref-link-wrapper') || e.target.closest('.action-btn')) return;
-
                 e.stopPropagation();
                 toggle.classList.toggle('active');
                 
@@ -440,22 +425,51 @@
                     if (!toggle.classList.contains('active')) {
                         textContainer.classList.remove('shimmer-text');
                     } else {
-                        textContainer.classList.remove('shimmer-text'); 
-                        void textContainer.offsetWidth; 
-                        textContainer.classList.add('shimmer-text');
+                        textContainer.classList.remove('shimmer-text'); void textContainer.offsetWidth; textContainer.classList.add('shimmer-text');
                     }
                 }
-
                 let content = toggle.nextElementSibling;
                 if (content.classList.contains('open')) { content.classList.remove('open'); } else { content.classList.add('open'); }
             });
         });
 
-        // DEEP LINKING
+        // DEEP LINKING LOGIC
         window.addEventListener('load', () => {
             const hash = window.location.hash.substring(1);
-            if (hash === 'alpha' || hash === 'nucleus' || hash === 'zero') {
+            if (!hash) return;
+
+            // 1. Modals
+            if (['alpha', 'nucleus', 'prime', 'zero'].includes(hash)) {
                 openModal(hash);
+            }
+            
+            // 2. Accordions (Smart opening)
+            const map = {
+                'rules': 'rulesBtn',
+                'instructions': 'instructBtn',
+                'add': 'addBtn',
+                'subs': 'subsBtn',
+                'card': 'cardBtn',
+                'ref': 'refBtn'
+            };
+
+            const targetId = map[hash];
+            if (targetId) {
+                const btn = document.getElementById(targetId);
+                if (btn) {
+                    // If it's a sub-button inside "Instructions", open Instructions first
+                    if (['addBtn', 'subsBtn', 'cardBtn', 'refBtn'].includes(targetId)) {
+                        const parent = document.getElementById('instructBtn');
+                        if (!parent.classList.contains('active')) parent.click();
+                        setTimeout(() => { 
+                            btn.click(); 
+                            btn.scrollIntoView({behavior: "smooth", block: "center"});
+                        }, 400); // small delay for animation
+                    } else {
+                        btn.click();
+                        btn.scrollIntoView({behavior: "smooth", block: "center"});
+                    }
+                }
             }
         });
 
