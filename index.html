@@ -62,7 +62,7 @@
         }
         @keyframes pulseLoader { 0% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 30px rgba(176, 82, 255, 0.5); } 100% { opacity: 0.5; transform: scale(0.95); } }
 
-        /* --- ФОН (PARALLAX RETURNED) --- */
+        /* --- ФОН (PARALLAX) --- */
         .space-background { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; 
             background: linear-gradient(125deg, #000000 0%, #0a0414 40%, #15002e 100%);
@@ -97,75 +97,68 @@
         }
         .glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--glass-shine); pointer-events: none; z-index: 0; }
 
-        /* --- НАВИГАЦИЯ (ИСПРАВЛЕНО: СТАТИЧНАЯ ПАНЕЛЬ СВЕРХУ) --- */
+        /* --- НАВИГАЦИЯ (ПК) --- */
         .nav-container { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            z-index: 100; 
-            display: flex; 
-            flex-direction: row; 
-            justify-content: center; /* Центрируем кнопки */
-            gap: 20px;
-            padding: 15px 0;
-            
-            /* Стеклянная панель */
-            background: rgba(5, 0, 20, 0.7);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            position: absolute; top: 25px; left: 25px; z-index: 100; 
+            display: flex; flex-direction: column; gap: 12px; 
         }
         
         .nav-btn { 
-            display: flex; align-items: center; gap: 8px; padding: 8px 16px; 
-            border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; 
-            background: transparent; 
-            border: 1px solid transparent;
-            color: #ccc; transition: all 0.3s ease; 
-            cursor: pointer; position: relative; overflow: hidden; white-space: nowrap;
+            display: flex; align-items: center; gap: 12px; padding: 12px 24px; 
+            border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; 
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: #fff; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            cursor: pointer; width: fit-content; position: relative; overflow: hidden;
         }
-        
         .nav-btn:hover { 
-            background: rgba(255, 255, 255, 0.05); 
-            color: #fff;
-            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(176, 82, 255, 0.15); border-color: rgba(176, 82, 255, 0.4); 
+            transform: translateX(5px); box-shadow: 0 8px 25px rgba(176, 82, 255, 0.25);
         }
-        
-        /* Кнопка "Заказать проект" - Выделяем её */
-        .nav-btn.special-order {
-            background: rgba(176, 82, 255, 0.1);
-            border: 1px solid rgba(176, 82, 255, 0.3);
-            color: #d387ff;
-        }
-        .nav-btn.special-order:hover {
-            background: rgba(176, 82, 255, 0.25);
-            box-shadow: 0 0 15px rgba(176, 82, 255, 0.3);
-        }
-
-        .nav-btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+        .nav-btn:active { transform: scale(0.95); }
+        .nav-btn svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
         button.nav-btn { font-family: 'Montserrat', sans-serif; text-align: left; } 
 
-        /* Кнопки Справа (Язык и Снег) */
-        .top-right-controls { position: fixed; top: 12px; right: 25px; z-index: 101; display: flex; gap: 15px; }
+        /* Кнопки Справа */
+        .top-right-controls { position: absolute; top: 25px; right: 25px; z-index: 100; display: flex; gap: 15px; }
 
         .control-btn { 
-            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; 
+            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; 
             border-radius: 50%; background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff; transition: all 0.3s ease; cursor: pointer; font-weight: 700; font-size: 0.8rem;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: #fff; transition: all 0.3s ease; cursor: pointer; font-weight: 700; font-size: 0.9rem;
         }
-        .control-btn:hover { background: rgba(176, 82, 255, 0.2); border-color: var(--primary-purple); }
-        .control-btn svg { width: 20px; height: 20px; fill: #fff; }
+        .control-btn:hover { background: rgba(176, 82, 255, 0.2); border-color: var(--primary-purple); transform: rotate(10deg) scale(1.1); }
+        .control-btn svg { width: 22px; height: 22px; fill: #fff; }
         .control-btn.active { background: var(--primary-purple); box-shadow: 0 0 25px var(--primary-purple); border-color: #fff; }
 
         #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
 
         /* --- КОНТЕЙНЕР --- */
-        .container { width: 100%; max-width: 700px; padding: 40px 20px; margin-top: 100px; z-index: 10; margin-bottom: 120px; }
+        .container { width: 100%; max-width: 700px; padding: 40px 20px; margin-top: 150px; z-index: 10; margin-bottom: 120px; }
         .header-section { text-align: center; margin-bottom: 60px; margin-top: 20px; }
         .main-title { font-size: 2rem; font-weight: 800; line-height: 1.4; color: #fff; letter-spacing: -0.5px; }
         .brand-name { display: block; font-size: 2.8rem; margin-top: 10px; background: linear-gradient(135deg, #d387ff 0%, #9000ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(168, 85, 247, 0.4); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- MOBILE TOP BLUR BAR (НОВОЕ) --- */
+        .mobile-top-blur {
+            display: none; /* На ПК скрыто */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px; /* Высота полоски */
+            background: linear-gradient(to bottom, rgba(2,0,5,0.8), transparent);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 99; /* Ниже кнопок, но выше контента */
+            pointer-events: none; /* Пропускает клики */
+        }
 
         /* --- UI COMPONENTS --- */
         .accordion-header { width: 100%; padding: 25px 30px; background: transparent; border: none; outline: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; position: relative; z-index: 1; }
@@ -354,6 +347,16 @@
             .brand-name { font-size: 2.2rem; }
             .container { padding: 15px; margin-top: 80px; margin-bottom: 120px; }
 
+            /* --- MOBILE TOP BLUR BAR --- */
+            .mobile-top-blur {
+                display: block; 
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 25px;
+                background: linear-gradient(to bottom, rgba(2,0,5,0.8), transparent);
+                backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+                z-index: 99; pointer-events: none;
+            }
+
             /* --- MOBILE BOTTOM BAR --- */
             .nav-container {
                 position: fixed; top: auto; bottom: 20px; left: 5%; width: 90%; 
@@ -361,7 +364,6 @@
                 background: rgba(20, 20, 30, 0.65); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
                 border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-radius: 25px; 
                 padding: 12px 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); z-index: 9999;
-                transform: none; /* Reset desktop positioning */
             }
 
             .nav-btn {
@@ -372,9 +374,6 @@
             .nav-btn:active { color: #b052ff; transform: scale(0.95); }
             .nav-btn svg { width: 22px; height: 22px; fill: currentColor; transition: fill 0.3s; }
             .nav-btn:active svg { fill: #b052ff; filter: drop-shadow(0 0 5px #b052ff); }
-            
-            /* Скрываем кнопку "Заказать проект" на мобильных для экономии места в баре, или делаем её такой же иконкой */
-            .nav-btn.special-order { border: none; background: transparent; color: #d387ff; }
 
             .top-right-controls { top: 15px; right: 15px; gap: 10px; }
             .control-btn { width: 42px; height: 42px; }
@@ -415,6 +414,9 @@
         </div>
     </div>
 
+    <!-- MOBILE TOP BLUR -->
+    <div class="mobile-top-blur"></div>
+
     <!-- ПОДРОБНЫЙ WIZARD ГАЙД -->
     <div class="guide-overlay" id="guideOverlay">
         <div class="wizard-card">
@@ -443,7 +445,7 @@
                     </div>
                     <h3 class="wiz-title" id="w_2_t">Центр управления</h3>
                     <p class="wiz-text" id="w_2_d">
-                        Ваше главное меню (статичная панель сверху на ПК или плавающая снизу на телефоне):
+                        Ваше главное меню (слева вверху на ПК или плавающая панель снизу на телефоне):
                     </p>
                     <ul class="wiz-list">
                         <li>📢 <strong>Канал:</strong> Новости, обновления и раздачи промокодов.</li>
@@ -582,11 +584,6 @@
             <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
             <span id="nav_guide">Гайд</span>
         </button>
-        <!-- КНОПКА ЗАКАЗАТЬ ПРОЕКТ -->
-        <a href="#" class="nav-btn special-order">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-            <span id="nav_order">Заказать проект</span>
-        </a>
     </div>
 
     <!-- КНОПКИ УПРАВЛЕНИЯ СПРАВА -->
@@ -727,9 +724,10 @@
     </div>
 
     <script>
+        // --- ПОЛНЫЙ ПЕРЕВОД (10 ЯЗЫКОВ) ---
         const i18n = {
             ru: {
-                nav_channel: "Канал", nav_bot: "Бот", nav_support: "Поддержка", nav_guide: "Гайд", nav_order: "Заказать проект",
+                nav_channel: "Канал", nav_bot: "Бот", nav_support: "Поддержка", nav_guide: "Гайд",
                 main_welcome: 'Добро пожаловать в<br>Ознакомительную обложку<span class="brand-name">Nafuzor Project</span>',
                 title_rules: "Правила", title_instruct: "Инструкции",
                 txt_rule_main: "Основные правила проекта", txt_rule_ban: "Строгие запреты", txt_rule_ban_desc: "Юзернеймы менять нельзя!<br>Иначе вы лишитесь выплаты.",
@@ -744,14 +742,14 @@
                 txt_ref_head: "Партнёрская программа", txt_ref_slogan: "Зарабатывай вместе с нами!", txt_ref_promo: "с каждого пополнения приглашенного друга", txt_ref_how: "Как это работает?",
                 txt_rw_1: "Зайдите в нашего <strong>Бота</strong>", txt_rw_2: "Откройте <strong>Меню</strong>", txt_rw_3: "Нажмите кнопку <strong>«👥 Реферальная система»</strong>", txt_rw_4: "Скопируйте вашу уникальную ссылку и отправьте другу!",
                 w_1_t: "Добро пожаловать", w_1_d: "<strong>Nafuzor Project</strong> — это экосистема для работы с виртуальными номерами. <br><br>Этот интерфейс — ваш пульт управления. Здесь вы найдете инструкции, правила и доступ к функционалу бота. Давайте настроим работу за 1 минуту.",
-                w_2_t: "Центр управления", w_2_d: "Ваше главное меню (статичная панель сверху на ПК или плавающая снизу на телефоне):<ul class=\"wiz-list\"><li>📢 <strong>Канал:</strong> Новости, обновления и раздачи промокодов.</li><li>🤖 <strong>Бот:</strong> Основной инструмент. Именно там и происходит вся работа.</li><li>🆘 <strong>Поддержка:</strong> Если у вас возникли какие-либо вопросы.</li></ul>",
+                w_2_t: "Центр управления", w_2_d: "Ваше главное меню (слева вверху на ПК или плавающая панель снизу на телефоне):<ul class=\"wiz-list\"><li>📢 <strong>Канал:</strong> Новости, обновления и раздачи промокодов.</li><li>🤖 <strong>Бот:</strong> Основной инструмент. Именно там и происходит вся работа.</li><li>🆘 <strong>Поддержка:</strong> Если у вас возникли какие-либо вопросы.</li></ul>",
                 w_3_t: "Как добавить номер?", w_3_d: "Алгоритм действий в разделе <strong>\"Инструкции\"</strong>:<ol class=\"wiz-list-ol\"><li>Нажмите <strong>«Управление номерами»</strong> в боте.</li><li>Выберите категорию (например, WhatsApp).</li><li>Ожидайте SMS-код. Он придет в бот уведомлением.</li></ol>",
                 w_4_t: "Nafuzor Wallet", w_4_d: "Деньги поступают прямо на карту.<br><br>Вы можете легко переводить средства другим пользователям сервиса.",
                 w_5_t: "Зарабатывайте с нами", w_5_d: "Не забывайте про раздел <strong>«Партнёрская программа»</strong>.<br><br>Приглашайте друзей по своей ссылке и получайте <strong>15%</strong> от каждого их пополнения пожизненно. Баланс можно вывести или потратить на номера.",
                 w_6_t: "Всё готово!", w_6_d: "Вы ознакомились с основами. <br>Не забудьте тапнуть по 3D-карте на главной, чтобы увидеть QR-код, и включить снег (кнопка ❄️) для атмосферы.<br><br>Удачного использования!"
             },
             en: {
-                nav_channel: "Channel", nav_bot: "Bot", nav_support: "Support", nav_guide: "Guide", nav_order: "Order Project",
+                nav_channel: "Channel", nav_bot: "Bot", nav_support: "Support", nav_guide: "Guide",
                 main_welcome: 'Welcome to the<br>Introductory Cover<span class="brand-name">Nafuzor Project</span>',
                 title_rules: "Rules", title_instruct: "Instructions",
                 txt_rule_main: "Main Project Rules", txt_rule_ban: "Strict Bans", txt_rule_ban_desc: "Usernames cannot be changed!<br>Otherwise, you will lose the payout.",
@@ -767,19 +765,93 @@
                 txt_ref_head: "Affiliate Program", txt_ref_slogan: "Earn with us!", txt_ref_promo: "from every deposit of an invited friend", txt_ref_how: "How it works?",
                 txt_rw_1: "Go to our <strong>Bot</strong>", txt_rw_2: "Open <strong>Menu</strong>", txt_rw_3: "Click <strong>«👥 Referral System»</strong>", txt_rw_4: "Copy your unique link and send to a friend!",
                 w_1_t: "Welcome", w_1_d: "<strong>Nafuzor Project</strong> is an ecosystem for working with virtual numbers. <br><br>This interface is your control panel. Here you will find instructions, rules and access to bot functions. Let's set up in 1 minute.",
-                w_2_t: "Control Center", w_2_d: "Your main menu (static panel on top on PC or floating panel at bottom on mobile):<ul class=\"wiz-list\"><li>📢 <strong>Channel:</strong> News, updates and promo codes.</li><li>🤖 <strong>Bot:</strong> Main tool. All work happens there.</li><li>🆘 <strong>Support:</strong> If you have any questions.</li></ul>",
+                w_2_t: "Control Center", w_2_d: "Your main menu (top left on PC or floating panel at bottom on mobile):<ul class=\"wiz-list\"><li>📢 <strong>Channel:</strong> News, updates and promo codes.</li><li>🤖 <strong>Bot:</strong> Main tool. All work happens there.</li><li>🆘 <strong>Support:</strong> If you have any questions.</li></ul>",
                 w_3_t: "How to add a number?", w_3_d: "Algorithm in <strong>\"Instructions\"</strong> section:<ol class=\"wiz-list-ol\"><li>Click <strong>«Manage Numbers»</strong> in the bot.</li><li>Choose category (e.g. WhatsApp).</li><li>Wait for SMS code. It will come as a notification.</li></ol>",
                 w_4_t: "Nafuzor Wallet", w_4_d: "Money goes directly to the card.<br><br>You can easily transfer funds to other users of the service.",
                 w_5_t: "Earn with us", w_5_d: "Don't forget the <strong>«Affiliate Program»</strong> section.<br><br>Invite friends via your link and get <strong>15%</strong> from every deposit for life. Balance can be withdrawn or spent on numbers.",
                 w_6_t: "All Set!", w_6_d: "You've learned the basics.<br>Don't forget to tap the 3D card on main page to see QR code, and toggle snow (❄️ button) for vibes.<br><br>Good luck!"
+            },
+            ua: {
+                nav_channel: "Канал", nav_bot: "Бот", nav_support: "Підтримка", nav_guide: "Гайд",
+                main_welcome: 'Ласкаво просимо в<br>Ознайомчу обкладинку<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "Правила", title_instruct: "Інструкції",
+                txt_rule_main: "Основні правила проекту", txt_rule_ban: "Суворі заборони", txt_rule_how: "Як користуватися ботом?",
+                txt_price_title: "Підвищення прайсу", txt_sub_add: "Як додати номер", txt_sub_subs: "Про підписки", txt_sub_card: "Про карту", txt_sub_ref: "Про рефералку",
+                txt_ref_head: "Партнерська програма", txt_ref_slogan: "Заробляй разом з нами!",
+                w_1_t: "Ласкаво просимо", w_2_t: "Центр управління", w_3_t: "Як додати номер?", w_4_t: "Nafuzor Wallet", w_5_t: "Заробляйте з нами", w_6_t: "Все готово!"
+            },
+            kz: {
+                nav_channel: "Арна", nav_bot: "Бот", nav_support: "Қолдау", nav_guide: "Гид",
+                main_welcome: 'Қош келдіңіз<br>Таныстыру мұқабасы<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "Ережелер", title_instruct: "Нұсқаулықтар",
+                txt_rule_main: "Жобаның негізгі ережелері", txt_rule_ban: "Қатаң тыйымдар", txt_rule_how: "Ботты қалай пайдалануға болады?",
+                txt_price_title: "Бағаны көтеру", txt_sub_add: "Нөмірді қалай қосуға болады", txt_sub_subs: "Жазылымдар туралы", txt_sub_card: "Карта туралы", txt_sub_ref: "Серіктестік туралы",
+                txt_ref_head: "Серіктестік бағдарлама", txt_ref_slogan: "Бізбен бірге табыс тап!",
+                w_1_t: "Қош келдіңіз", w_2_t: "Басқару орталығы", w_3_t: "Нөмірді қалай қосуға болады?", w_4_t: "Nafuzor Wallet", w_5_t: "Бізбен бірге табыс тап", w_6_t: "Дайын!"
+            },
+            es: {
+                nav_channel: "Canal", nav_bot: "Bot", nav_support: "Soporte", nav_guide: "Guía",
+                main_welcome: 'Bienvenido a<br>Portada Introductoria<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "Reglas", title_instruct: "Instrucciones",
+                txt_rule_main: "Reglas Principales", txt_rule_ban: "Prohibiciones Estrictas", txt_rule_how: "¿Cómo usar el bot?",
+                txt_price_title: "Aumento de Precio", txt_sub_add: "Cómo agregar número", txt_sub_subs: "Suscripciones", txt_sub_card: "Sobre la tarjeta", txt_sub_ref: "Sistema de referidos",
+                txt_ref_head: "Programa de Afiliados", txt_ref_slogan: "¡Gana con nosotros!",
+                w_1_t: "Bienvenido", w_2_t: "Centro de Control", w_3_t: "¿Cómo agregar número?", w_4_t: "Nafuzor Wallet", w_5_t: "Gana con nosotros", w_6_t: "¡Listo!"
+            },
+            de: {
+                nav_channel: "Kanal", nav_bot: "Bot", nav_support: "Support", nav_guide: "Anleitung",
+                main_welcome: 'Willkommen beim<br>Einführungscover<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "Regeln", title_instruct: "Anleitungen",
+                txt_rule_main: "Hauptregeln", txt_rule_ban: "Strenge Verbote", txt_rule_how: "Wie benutzt man den Bot?",
+                txt_price_title: "Preiserhöhung", txt_sub_add: "Nummer hinzufügen", txt_sub_subs: "Abonnements", txt_sub_card: "Über die Karte", txt_sub_ref: "Empfehlungssystem",
+                txt_ref_head: "Partnerprogramm", txt_ref_slogan: "Verdiene mit uns!",
+                w_1_t: "Willkommen", w_2_t: "Kontrollzentrum", w_3_t: "Wie füge ich eine Nummer hinzu?", w_4_t: "Nafuzor Wallet", w_5_t: "Verdiene mit uns", w_6_t: "Fertig!"
+            },
+            fr: {
+                nav_channel: "Canal", nav_bot: "Bot", nav_support: "Support", nav_guide: "Guide",
+                main_welcome: 'Bienvenue sur<br>Couverture d\'introduction<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "Règles", title_instruct: "Instructions",
+                txt_rule_main: "Règles Principales", txt_rule_ban: "Interdictions Strictes", txt_rule_how: "Comment utiliser le bot ?",
+                txt_price_title: "Augmentation des prix", txt_sub_add: "Ajouter un numéro", txt_sub_subs: "Abonnements", txt_sub_card: "À propos de la carte", txt_sub_ref: "Système de parrainage",
+                txt_ref_head: "Programme d'affiliation", txt_ref_slogan: "Gagnez avec nous !",
+                w_1_t: "Bienvenue", w_2_t: "Centre de contrôle", w_3_t: "Comment ajouter un numéro ?", w_4_t: "Nafuzor Wallet", w_5_t: "Gagnez avec nous", w_6_t: "C'est prêt !"
+            },
+            pt: {
+                nav_channel: "Canal", nav_bot: "Bot", nav_support: "Suporte", nav_guide: "Guia",
+                main_welcome: 'Bem-vindo ao<br>Capa Introdutória<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "Regras", title_instruct: "Instruções",
+                txt_rule_main: "Regras Principais", txt_rule_ban: "Proibições Estritas", txt_rule_how: "Como usar o bot?",
+                txt_price_title: "Aumento de Preço", txt_sub_add: "Adicionar número", txt_sub_subs: "Assinaturas", txt_sub_card: "Sobre o cartão", txt_sub_ref: "Sistema de Referência",
+                txt_ref_head: "Programa de Afiliados", txt_ref_slogan: "Ganhe conosco!",
+                w_1_t: "Bem-vindo", w_2_t: "Centro de Controle", w_3_t: "Como adicionar número?", w_4_t: "Nafuzor Wallet", w_5_t: "Ganhe conosco", w_6_t: "Pronto!"
+            },
+            tr: {
+                nav_channel: "Kanal", nav_bot: "Bot", nav_support: "Destek", nav_guide: "Rehber",
+                main_welcome: 'Hoşgeldiniz<br>Tanıtım Kapağı<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "Kurallar", title_instruct: "Talimatlar",
+                txt_rule_main: "Ana Kurallar", txt_rule_ban: "Kesin Yasaklar", txt_rule_how: "Bot nasıl kullanılır?",
+                txt_price_title: "Fiyat Artışı", txt_sub_add: "Numara ekle", txt_sub_subs: "Abonelikler", txt_sub_card: "Kart Hakkında", txt_sub_ref: "Referans Sistemi",
+                txt_ref_head: "Ortaklık Programı", txt_ref_slogan: "Bizimle kazan!",
+                w_1_t: "Hoşgeldiniz", w_2_t: "Kontrol Merkezi", w_3_t: "Numara nasıl eklenir?", w_4_t: "Nafuzor Wallet", w_5_t: "Bizimle kazan", w_6_t: "Hazır!"
+            },
+            cn: {
+                nav_channel: "频道", nav_bot: "机器人", nav_support: "支持", nav_guide: "指南",
+                main_welcome: '欢迎来到<br>介绍封面<span class="brand-name">Nafuzor Project</span>',
+                title_rules: "规则", title_instruct: "说明",
+                txt_rule_main: "主要规则", txt_rule_ban: "严格禁止", txt_rule_how: "如何使用机器人？",
+                txt_price_title: "价格上涨", txt_sub_add: "如何添加号码", txt_sub_subs: "订阅", txt_sub_card: "关于卡片", txt_sub_ref: "推荐系统",
+                txt_ref_head: "联盟计划", txt_ref_slogan: "与我们一起赚钱！",
+                w_1_t: "欢迎", w_2_t: "控制中心", w_3_t: "如何添加号码？", w_4_t: "Nafuzor Wallet", w_5_t: "与我们一起赚钱", w_6_t: "准备好了！"
             }
         };
 
-        // FALLBACK FOR OTHER LANGUAGES (Use English if no translation)
+        // Заполняем недостающие поля английским
         ['ua', 'kz', 'es', 'de', 'fr', 'pt', 'tr', 'cn'].forEach(lang => {
             const base = i18n.en;
-            const target = i18n[lang] || {};
-            i18n[lang] = { ...base, ...target }; 
+            const target = i18n[lang];
+            for (let key in base) {
+                if (!target[key]) target[key] = base[key];
+            }
         });
 
         let currentSlide = 0;
@@ -908,15 +980,13 @@
         function openGuide() { guideOverlay.classList.add('active'); }
         function closeGuide() { guideOverlay.classList.remove('active'); localStorage.setItem('nafuzorGuideSeen', 'true'); }
 
-        // PARALLAX
+        // PARALLAX (Движение звезд и туманностей за мышью)
         if (window.innerWidth > 768) {
             document.addEventListener('mousemove', (e) => {
                 const x = (window.innerWidth - e.pageX * 2) / 100;
                 const y = (window.innerHeight - e.pageY * 2) / 100;
                 document.querySelectorAll('.parallax-layer').forEach(layer => {
-                    const speed = (layer.classList.contains('stars-static')) ? 2 : 
-                                  (layer.classList.contains('nebula-1')) ? 5 :
-                                  (layer.classList.contains('nebula-2')) ? 7 : 4;
+                    const speed = layer.getAttribute('data-speed');
                     layer.style.transform = `translateX(${x * speed}px) translateY(${y * speed}px)`;
                 });
             });
