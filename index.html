@@ -911,7 +911,9 @@
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
             
-            const data = i18n[lang];
+            // Используем fallback, если перевод не найден
+            const data = i18n[lang] || i18n.en;
+            
             for (const key in data) {
                 const el = document.getElementById(key);
                 if (el) el.innerHTML = data[key];
@@ -978,10 +980,19 @@
         let snowActive = false;
         let particles = [];
         let animationId;
+        
         function resizeCanvas() { snowCanvas.width = window.innerWidth; snowCanvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        
         class Snowflake { constructor() { this.x = Math.random() * snowCanvas.width; this.y = Math.random() * snowCanvas.height; this.velocity = Math.random() * 1.5 + 0.5; this.radius = Math.random() * 2 + 1; this.drift = Math.random() * 1 - 0.5; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; ctx.fill(); } update() { this.y += this.velocity; this.x += this.drift; if (this.y > snowCanvas.height) { this.y = -5; this.x = Math.random() * snowCanvas.width; } if (this.x > snowCanvas.width) this.x = 0; if (this.x < 0) this.x = snowCanvas.width; } }
-        function initSnow() { particles = []; const count = window.innerWidth < 768 ? 20 : 80; for (let i = 0; i < count; i++) particles.push(new Snowflake()); }
+        
+        function initSnow() { 
+            particles = []; 
+            // ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ: меньше частиц
+            const count = window.innerWidth < 768 ? 25 : 80; 
+            for (let i = 0; i < count; i++) particles.push(new Snowflake()); 
+        }
+        
         function animateSnow() { if (!snowActive) return; ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height); particles.forEach(p => { p.update(); p.draw(); }); animationId = requestAnimationFrame(animateSnow); }
         snowBtn.addEventListener('click', () => { snowActive = !snowActive; if (snowActive) { snowBtn.classList.add('active'); initSnow(); animateSnow(); } else { snowBtn.classList.remove('active'); ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height); cancelAnimationFrame(animationId); } });
 
@@ -997,7 +1008,7 @@
         function openGuide() { guideOverlay.classList.add('active'); }
         function closeGuide() { guideOverlay.classList.remove('active'); localStorage.setItem('nafuzorGuideSeen', 'true'); }
 
-        // PARALLAX (Движение звезд и туманностей за мышью)
+        // PARALLAX (Движение звезд и туманностей за мышью - только ПК для производительности)
         if (window.innerWidth > 768) {
             document.addEventListener('mousemove', (e) => {
                 const x = (window.innerWidth - e.pageX * 2) / 100;
